@@ -1,5 +1,6 @@
 package GDG.whatssue.entity;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,7 +16,7 @@ import java.util.Collection;
 *
 * Security Session => Authentication => UserDetails(PrincipalDetails)
  */
-
+@Getter
 public class PrincipalDetails implements UserDetails {
     private User user;
 

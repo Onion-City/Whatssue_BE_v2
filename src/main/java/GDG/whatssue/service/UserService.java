@@ -49,6 +49,16 @@ public class UserService implements UserDetailsService {
         // Session(내부 Authentication(내부 UserDetails))
     }
 
+    public UserDto getUserInfo(PrincipalDetails principalDetails) {
+        User user = principalDetails.getUser();
+        return UserDto.builder()
+                .userNick(user.getUserNick())
+                .userPw(user.getUserPw())
+                .userEmail(user.getUserEmail())
+                .userName(user.getUserName())
+                .userPhone(user.getUserPhone())
+                .build();
+    }
 
 
 }

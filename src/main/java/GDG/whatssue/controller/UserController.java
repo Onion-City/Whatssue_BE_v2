@@ -1,12 +1,14 @@
 package GDG.whatssue.controller;
 
 import GDG.whatssue.dto.User.UserDto;
+import GDG.whatssue.entity.PrincipalDetails;
 import GDG.whatssue.entity.User;
 import GDG.whatssue.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,9 +29,16 @@ public class UserController {
     public @ResponseBody String manager() {
         return "매니저 페이지입니다.";
     }
-
+//    public ResponseEntity login() {
+//        return ResponseEntity.status(200).body(userService.loadUserByUsername());
+//    }
     @GetMapping({ "", "/" })
-    public @ResponseBody String index() {
-        return "인덱스 페이지입니다.";
+    public String index() {
+        return "index";
+    }
+    @GetMapping("/currentUser")
+    public ResponseEntity currentUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        UserDto userDto = userService.getUserInfo(principalDetails);
+        return ResponseEntity.status(200).body(userDto);
     }
 }
