@@ -13,21 +13,21 @@ import lombok.Getter;
 @Entity
 public class MemberAttendanceResult {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_attendance_result_id")
-    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "member_attendance_result_id")
+private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "club_id", nullable = false)
-    private ClubMember clubMember;
+@OneToOne
+@JoinColumn(name = "club_id", nullable = false)
+private ClubMember clubMember;
 
-    @Column(nullable = false)
-    private int checkCount;
+@Column(nullable = false)
+private int checkCount;
 
-    @Column(nullable = false)
-    private int absentCount;
+@Column(nullable = false)
+private int absentCount;
 
-    @Column(nullable = false)
-    private int officialCount;
+@Column(nullable = false)
+private int officialCount;
 }

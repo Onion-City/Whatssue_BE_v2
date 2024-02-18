@@ -58,8 +58,7 @@ public class AttendanceService {
         attendanceList = scheduleAttendanceResultRepository.findByScheduleId(scheduleId);
 
         if (attendanceList.isEmpty()) throw new Exception("출석한 멤버가 존재하지 않습니다.");
-
-        List<ScheduleAttendanceMemberDto> attendedMembers = attendanceList.stream().map(m -> {
+        List<ScheduleAttendanceMemberDto> attendedMembers = (List<ScheduleAttendanceMemberDto>) attendanceList.stream().map(m -> {
             if (m.getAttendanceType().toString().equals("ATTENDANCE")) {
                 return ScheduleAttendanceMemberDto.builder()
                         .clubId(clubId)
@@ -68,7 +67,7 @@ public class AttendanceService {
                         .attendanceType(m.getAttendanceType())
                         .build();
             } else return null;
-        }).filter(Objects::nonNull).collect(Collectors.toList()).reversed();
+        });
         return attendedMembers;
     }
     public void doAttendance(Long clubId, Long schduleId, ScheduleAttendanceRequestDto requestDto) throws Exception{
