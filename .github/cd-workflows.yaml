@@ -43,8 +43,7 @@ jobs:
         if: contains(github.ref, 'main') || contains(github.ref, 'develop')
         run: |
           docker build -f Dockerfile -t ghcr.io/onion-city/whatssue_be_v2/whatssue:latest .
-          docker push ghcr.io/onion-city/whatssue_be_v2/whatssue:latest
-
+          docker push ghcr.io/Onion-City/Whatssue_BE_v2/whatssue:latest
 
 
       # 개발서버 SSH접속 및 배포
