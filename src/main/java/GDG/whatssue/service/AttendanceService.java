@@ -42,7 +42,7 @@ public class AttendanceService {
         return attendanceNumResponseDto;
     }
 
-    /*Delete시에 결석자 명단을 업로드해야할까?*/
+    /*Delete 시에 결석자 명단을 업로드해야할까?*/
     public void deleteAttendance(Long clubId, Long scheduleId) throws Exception {
         if (attendanceNumMap.containsKey(clubId)) {
             if (attendanceNumMap.get(clubId).containsKey(scheduleId))
