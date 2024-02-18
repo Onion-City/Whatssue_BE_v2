@@ -67,6 +67,7 @@ jobs:
             sudo docker rmi ghcr.io/onion-city/whatssue_be_v2/whatssue
             fi
             sudo docker pull ghcr.io/onion-city/whatssue_be_v2/whatssue:latest
-            sudo docker stop $(docker ps -a -q)
+            sudo docker stop whatssue-be
+            sudo docker rm whatssue-be
             sudo docker run -d -p 8080:8080 --name whatssue-be ghcr.io/onion-city/whatssue_be_v2/whatssue:latest
             sudo docker image prune -a -f
