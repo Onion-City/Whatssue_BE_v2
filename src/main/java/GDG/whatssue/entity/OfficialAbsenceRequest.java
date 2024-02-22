@@ -7,11 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Builder;
 
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 public class OfficialAbsenceRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +29,9 @@ public class OfficialAbsenceRequest {
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
 
+    @JoinColumn(name = "official_absence_content", nullable = false)
+    private String officialAbsenceContent;
+    public OfficialAbsenceRequest() {
+        // 기본 생성자
+    }
 }

@@ -9,10 +9,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ScheduleAttendanceResult extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +36,8 @@ public class ScheduleAttendanceResult extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AttendanceType attendanceType;
+
+    public void setAttendanceType(AttendanceType attendanceType) {
+        this.attendanceType=attendanceType;
+    }
 }

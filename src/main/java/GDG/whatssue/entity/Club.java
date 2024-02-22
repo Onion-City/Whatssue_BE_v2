@@ -3,9 +3,14 @@ package GDG.whatssue.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Club extends BaseEntity {
 
     @Id

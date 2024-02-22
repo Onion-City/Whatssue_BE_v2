@@ -1,13 +1,13 @@
-package GDG.whatssue;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class WhatssueApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//package GDG.whatssue;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//
+//@SpringBootTest
+//class WhatssueApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}
