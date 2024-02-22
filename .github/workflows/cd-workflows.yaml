@@ -31,7 +31,8 @@ jobs:
           spring.datasource.password: ${{ secrets.DB_PASSWORD }}
           spring.datasource.driver-class-name: com.mariadb.jdbc.Driver
           spring.jpa.hibernate.ddl-auto: update
-          spring.jpa.hibernate.dialect: org.hibernate.dialect.MariaDBDialect
+          spring.jpa.hibernate.dialect: org.hibernate.dialect.MariaDB103Dialect
+
 
       # Login to ghcr
       - name: Login to ghcr
