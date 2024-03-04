@@ -4,10 +4,11 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import GDG.whatssue.dto.schedule.request.AddScheduleRequest;
-import GDG.whatssue.dto.schedule.reponse.GetScheduleResponse;
-import GDG.whatssue.dto.schedule.request.ModifyScheduleRequest;
-import GDG.whatssue.service.ScheduleService;
+import GDG.whatssue.domain.schedule.controller.ScheduleController;
+import GDG.whatssue.domain.schedule.dto.AddScheduleRequest;
+import GDG.whatssue.domain.schedule.dto.GetScheduleResponse;
+import GDG.whatssue.domain.schedule.dto.ModifyScheduleRequest;
+import GDG.whatssue.domain.schedule.service.ScheduleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.LocalDateTime;
