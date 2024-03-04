@@ -56,10 +56,10 @@ jobs:
         id: deploy
         if: contains(github.ref, 'main') || contains(github.ref, 'develop')
         with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           host: ${{ secrets.DEV_SERVER_DNS }}
           username: ${{ secrets.DEV_SERVER_USER }}
-          password: ${{ secrets.DEV_SERVER_PASSWORD }}
-          port: ${{ secrets.DEV_SERVER_SSH_PORT }}
+         
           script: |
             echo "${{ secrets.GHCR_TOKEN }}" | sudo docker login ghcr.io -u pinetree2 --password-stdin
             if [ "$(docker ps -aq -f name=whatssue-be)" ]; then
