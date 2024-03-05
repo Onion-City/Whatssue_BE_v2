@@ -52,6 +52,8 @@ jobs:
 
       # Docker 빌드 생성 및 푸시
       - name: dev Docker build & push
+        id: docker_build
+        uses: docker/build-push-action@v2
         if: contains(github.ref, 'main') || contains(github.ref, 'develop')
         run: |
           docker build -f Dockerfile -t ghcr.io/onion-city/whatssue_be_v2/whatssue:latest .
