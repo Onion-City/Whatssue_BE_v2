@@ -1,7 +1,7 @@
 spring:
   datasource:
-    username: ${SPRING_DATASOURCE_USERNAME}
     url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
     #jdbc:mysql://localhost:3306/whatssuev2?serverTimezone=UTC&characterEncoding=UTF-8
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
