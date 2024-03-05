@@ -27,8 +27,8 @@ jobs:
           files: ${{ env.RESOURCE_PATH }}
 
         env:
-          spring.datasource.url: ${{ secrets.DB_URL }}
           spring.datasource.username: ${{ secrets.DB_USERNAME }}
+          spring.datasource.url: ${{ secrets.DB_URL }}
           spring.datasource.password: ${{ secrets.DB_PASSWORD }}
 
       # Login to ghcr
