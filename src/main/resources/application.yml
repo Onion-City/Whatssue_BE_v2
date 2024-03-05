@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
+    url: jdbc:mysql://13.209.192.24:3306/whatssuev2?serverTimezone=UTC&characterEncoding=UTF-8
     username: ${SPRING_DATASOURCE_USERNAME}
     #jdbc:mysql://localhost:3306/whatssuev2?serverTimezone=UTC&characterEncoding=UTF-8
     password: ${SPRING_DATASOURCE_PASSWORD}
