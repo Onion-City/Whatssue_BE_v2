@@ -1,8 +1,7 @@
 spring:
   datasource:
     username: ${SPRING_DATASOURCE_USERNAME}
-    url: jdbc:mysql://localhost :3306/whatssuev2?serverTimezone=UTC&characterEncoding=UTF-8
-
+    url: ${SPRING_DATASOURCE_URL}
     #jdbc:mysql://localhost:3306/whatssuev2?serverTimezone=UTC&characterEncoding=UTF-8
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,9 +9,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
 
 
   security:
