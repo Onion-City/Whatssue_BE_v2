@@ -31,6 +31,10 @@ jobs:
           spring.datasource.password: ${{ secrets.DB_PASSWORD }}
           spring.security.oauth2.client.registration.Kakao.client-id: ${{ secrets.KAKAO_CLIENT_ID }}
           spring.security.oauth2.client.registration.Kakao.client-secret: ${{ secrets.KAKAO_CLIENT_SECRET }}
+      # Gradle의 사용권한 셋팅
+      - name: Grant Execute permission for gradlew
+        run: chmod +x gradlew
+        shell: bash
 
       - name: Execute Gradle build
         run: ./gradlew build
@@ -50,17 +54,15 @@ jobs:
           docker build -f Dockerfile -t ghcr.io/onion-city/whatssue_be_v2/whatssue:latest .
           docker push ghcr.io/onion-city/whatssue_be_v2/whatssue:latest
 
-
       # 개발서버 SSH접속 및 배포
       - name: Deploy
         uses: appleboy/ssh-action@master
         id: deploy
         if: contains(github.ref, 'main') || contains(github.ref, 'develop')
         with:
+          key: ${{secrets.SSH_PRIVATE_KEY }}
           host: ${{ secrets.DEV_SERVER_DNS }}
           username: ${{ secrets.DEV_SERVER_USER }}
-          password: ${{ secrets.DEV_SERVER_PASSWORD }}
-          port: ${{ secrets.DEV_SERVER_SSH_PORT }}
           script: |
             echo "${{ secrets.GHCR_TOKEN }}" | sudo docker login ghcr.io -u pinetree2 --password-stdin
             if [ "$(docker ps -aq -f name=whatssue-be)" ]; then

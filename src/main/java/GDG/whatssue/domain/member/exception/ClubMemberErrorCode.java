@@ -10,11 +10,11 @@ import org.springframework.http.HttpStatus;
 public enum ClubMemberErrorCode implements ErrorCode {
 
     CLUB_NOT_FOUND_ERROR(HttpStatus.BAD_REQUEST, "No Club With That Club Code"),
-    INVALID_CLUB_CODE_ERROR(HttpStatus.BAD_REQUEST, "Invalid Club Code Pattern [******]"),
-    DUPLICATE_CLUB_JOIN_ERROR(HttpStatus.BAD_REQUEST, "Club That Has Already Joined");
-
+    INVALID_PRIVATE_CODE_PATTERN_ERROR(HttpStatus.BAD_REQUEST, "Invalid Private Code Pattern [FFFFFF]"),
+    INVALID_PRIVATE_CODE_ERROR(HttpStatus.BAD_REQUEST, "Invalid Private Code"),
+    DUPLICATE_CLUB_JOIN_ERROR(HttpStatus.BAD_REQUEST, "Club That Has Already Joined"),
+    PRIVATE_CLUB_ERROR(HttpStatus.BAD_REQUEST, "Private Club Needs Private Code");
 
     private final HttpStatus httpStatus;
     private final String message;
-
 }

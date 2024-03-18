@@ -42,6 +42,8 @@ public class User extends BaseEntity {
     @Column( nullable = false, unique = true)
     private String oauth2Id;
 
+    @Column
+    private String userPhone;
 
     @OneToMany(mappedBy = "user")
     private List<ClubJoinRequest> clubJoinRequestList = new ArrayList<>();

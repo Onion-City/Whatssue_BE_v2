@@ -71,7 +71,6 @@ public class ScheduleController {
     @GetMapping("/{scheduleId}")
 //    @PreAuthorize("hasAnyRole('ROLE_'+#clubId+'MANAGER','ROLE_'+#clubId+'MEMBER')")
     public ResponseEntity getSchedule (@PathVariable(name = "clubId") Long clubId, @PathVariable(name = "scheduleId") Long scheduleId) {
-
         GetScheduleResponse scheduleDto = scheduleService.findSchedule(scheduleId);
 
         return ResponseEntity.status(HttpStatus.OK).body(scheduleDto);
@@ -82,24 +81,36 @@ public class ScheduleController {
     @Parameter(name = "date", description = "날짜 미입력 시 전체 일정 조회 (날짜 패턴 : yyyy-MM-dd or yyyy-MM)", required = false, in = ParameterIn.QUERY)
 //    @PreAuthorize("hasAnyRole('ROLE_'+#clubId+'MANAGER','ROLE_'+#clubId+'MEMBER')")
     public ResponseEntity getScheduleAll( @PathVariable(name = "clubId") Long clubId, @RequestParam(name = "date", required = false) String date) {
-
         List<GetScheduleResponse> responseDtoList;
+        responseDtoList = getScheduleResponses(clubId, date);
 
+        return new ResponseEntity(responseDtoList, HttpStatus.OK);
+    }
+
+    private List<GetScheduleResponse> getScheduleResponses(Long clubId, String date) {
+        List<GetScheduleResponse> responseDtoList;
         if (date == null) { //전체 조회
             responseDtoList = scheduleService.findScheduleAll(clubId);
         } else {
             boolean day_check = Pattern.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}", date);
             boolean month_check = Pattern.matches("[0-9]{4}-[0-9]{2}", date);
 
-            if (day_check) { //일자별 조회
-                responseDtoList = scheduleService.findScheduleByDay(clubId, date);
-            } else if (month_check) { //월별 조회
-                responseDtoList = scheduleService.findScheduleByMonth(clubId, date);
-            } else { //지정 패턴과 맞지 않음
-                throw new CommonException(ScheduleErrorCode.INVALID_SCHEDULE_DATE_ERROR);
-            }
+            responseDtoList = getScheduleResponsesByFilter(clubId, date, day_check, month_check);
         }
 
-        return new ResponseEntity(responseDtoList, HttpStatus.OK);
+        return responseDtoList;
+    }
+
+    private List<GetScheduleResponse> getScheduleResponsesByFilter(Long clubId, String date, boolean day_check, boolean month_check) {
+        List<GetScheduleResponse> responseDtoList;
+        if (day_check) { //일자별 조회
+            responseDtoList = scheduleService.findScheduleByDay(clubId, date);
+        } else if (month_check) { //월별 조회
+            responseDtoList = scheduleService.findScheduleByMonth(clubId, date);
+        } else { //지정 패턴과 맞지 않음
+            throw new CommonException(ScheduleErrorCode.INVALID_SCHEDULE_DATE_PATTERN_ERROR);
+        }
+
+        return responseDtoList;
     }
 }

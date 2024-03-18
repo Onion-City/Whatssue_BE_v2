@@ -2,10 +2,13 @@ package GDG.whatssue.domain.club.service;
 
 import GDG.whatssue.domain.club.dto.SettingClubDto;
 import GDG.whatssue.domain.club.entity.Club;
+import GDG.whatssue.domain.club.exception.ClubErrorCode;
 import GDG.whatssue.domain.club.repository.ClubRepository;
+import GDG.whatssue.global.error.CommonException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,19 +25,22 @@ public class ClubSettingService {
         String clubCode;
         do {
             clubCode = generateRandomClubCode();
-        } while (clubRepository.existsByClubCode(clubCode)); // 중복 체크
+        } while (clubRepository.existsByPrivateCode(clubCode)); // 중복 체크
         Club club = Club.builder()
                 .clubName(settingClubDto.getClubName())
                 .clubInfo(settingClubDto.getClubInfo())
                 .clubCategory(settingClubDto.getClubCategory())
-                .clubCode(clubCode) // 랜덤 클럽 코드 생성
+                .privateCode(clubCode) // 랜덤 클럽 코드 생성
                 .build();
         clubRepository.save(club);
     }
 
-    private String generateRandomClubCode() {//클럽 수정
-        // 랜덤한 정수를 생성하여 클럽 코드로 사용
-        return String.valueOf(new Random().nextInt(90000) + 10000);
+    private String generateRandomClubCode() {
+        Random random = new Random();
+        // 랜덤한 알파벳 대문자와 0에서 9 사이의 랜덤한 정수를 섞어 클럽 코드로 사용
+        return "" + (char) ('A' + random.nextInt(26)) + random.nextInt(10)
+                + (char) ('A' + random.nextInt(26)) + random.nextInt(10)
+                + (char) ('A' + random.nextInt(26)) + random.nextInt(10);
     }
 
     public void modifyClub(Long clubId, SettingClubDto settingClubDto) {
@@ -61,5 +67,79 @@ public class ClubSettingService {
         } else {
             logger.warn("모임을 찾을 수 없습니다.");
         }
+    }
+
+    public ResponseEntity isActivateCode(Long clubId) {
+        Club club = clubRepository.findById(clubId)
+                .orElseThrow(() -> new CommonException(ClubErrorCode.CLUB_NOT_FOUND_ERROR));
+        boolean isActivateCode = club.isActivateCode();
+
+        if (club != null) {
+            //isActivatecode 가 false 일 경우 true로, true일 경우 false로 변경
+            if (!isActivateCode) {
+                // update 메소드 사용
+                // 활성화
+                club.updateActivateCode(true);
+                clubRepository.save(club);
+                //response
+                return ResponseEntity.status(200).body("모임 가입 코드 활성화 완료");
+            } else {
+                // 비활성화
+                club.updateActivateCode(false);
+                clubRepository.save(club);
+                return ResponseEntity.status(200).body("모임 가입 코드 비활성화 완료");
+
+            }
+        } else {
+            logger.warn("모임을 찾을 수 없습니다.");
+            return ResponseEntity.status(404).body("모임을 찾을 수 없습니다.");
+        }
+
+    }
+
+    public ResponseEntity renewalClubCode(Long cludId) {
+        Club club = clubRepository.findById(cludId)
+                .orElseThrow(() -> new CommonException(ClubErrorCode.CLUB_NOT_FOUND_ERROR));
+        String clubCode = club.getPrivateCode();
+        if (club != null) {
+            do {
+                clubCode = generateRandomClubCode();
+            } while (clubRepository.existsByPrivateCode(clubCode)); // 중복 체크
+
+            club.updatePrivateCode(clubCode);
+            clubRepository.save(club);
+            //가입 코드를 return
+            return ResponseEntity.status(200).body(clubCode);
+
+        } else {
+            logger.warn("모임을 찾을 수 없습니다.");
+            return ResponseEntity.status(404).body("모임을 찾을 수 없습니다.");
+        }
+    }
+
+    public ResponseEntity changeClubStatus(Long cludId) {
+        Club club = clubRepository.findById(cludId)
+                .orElseThrow(() -> new CommonException(ClubErrorCode.CLUB_NOT_FOUND_ERROR));
+        if (club != null) {
+            //isJoinStatus 가 false 일 경우 true로, true일 경우 false로 변경
+            if (!club.isJoinStatus()) {
+                // update 메소드 사용
+                // 활성화
+                club.updateIsJoinStatus(true);
+                clubRepository.save(club);
+                //response
+                return ResponseEntity.status(200).body("모임 가입 신청 여닫기 완료");
+            } else {
+                // 비활성화
+                club.updateIsJoinStatus(false);
+                clubRepository.save(club);
+                return ResponseEntity.status(200).body("모임 가입 신청 여닫기 완료");
+
+            }
+        } else {
+            logger.warn("모임을 찾을 수 없습니다.");
+            return ResponseEntity.status(404).body("모임을 찾을 수 없습니다.");
+        }
+
     }
 }
