@@ -1,6 +1,5 @@
 package GDG.whatssue.domain.club.service;
 
-import GDG.whatssue.domain.club.dto.SettingClubDto;
 import GDG.whatssue.domain.club.entity.Club;
 import GDG.whatssue.domain.club.exception.ClubErrorCode;
 import GDG.whatssue.domain.club.repository.ClubRepository;
@@ -21,19 +20,7 @@ public class ClubSettingService {
     private final ClubRepository clubRepository;
     private static final Logger logger = LoggerFactory.getLogger(ClubSettingService.class);
 
-    public void createClub(SettingClubDto settingClubDto) {//클럽 생성
-        String clubCode;
-        do {
-            clubCode = generateRandomClubCode();
-        } while (clubRepository.existsByPrivateCode(clubCode)); // 중복 체크
-        Club club = Club.builder()
-                .clubName(settingClubDto.getClubName())
-                .clubInfo(settingClubDto.getClubInfo())
-                .clubCategory(settingClubDto.getClubCategory())
-                .privateCode(clubCode) // 랜덤 클럽 코드 생성
-                .build();
-        clubRepository.save(club);
-    }
+
 
     private String generateRandomClubCode() {
         Random random = new Random();
@@ -43,31 +30,6 @@ public class ClubSettingService {
                 + (char) ('A' + random.nextInt(26)) + random.nextInt(10);
     }
 
-    public void modifyClub(Long clubId, SettingClubDto settingClubDto) {
-        Optional<Club> optionalClub = clubRepository.findById(clubId);
-
-        if (optionalClub.isPresent()) { //존재 시 수행
-            Club club = optionalClub.get();
-            club.setClubName(settingClubDto.getClubName());
-            club.setClubInfo(settingClubDto.getClubInfo());
-            club.setClubCategory(settingClubDto.getClubCategory());
-
-            // 수정된 클럽을 저장
-            clubRepository.save(club);
-        } else {
-            logger.warn("모임을 찾을 수 없습니다.");
-        }
-    }
-
-    public void deleteClub(Long clubId) {
-        Optional<Club> optionalClub = clubRepository.findById(clubId);
-
-        if (optionalClub.isPresent()) { //존재 시 수행
-            clubRepository.delete(optionalClub.get());
-        } else {
-            logger.warn("모임을 찾을 수 없습니다.");
-        }
-    }
 
     public ResponseEntity isActivateCode(Long clubId) {
         Club club = clubRepository.findById(clubId)

@@ -49,6 +49,9 @@ public class Club extends BaseEntity {
     @Column(nullable = false)
     private boolean isJoinStatus;
 
+    @Column(nullable = false)
+    private String privateCode;
+
     @OneToMany(mappedBy = "club")
     private List<ClubMember> clubMemberList;
 
