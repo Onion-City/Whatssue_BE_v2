@@ -24,7 +24,7 @@ public class ClubMemberService {
         Club club = clubRepository.findById(requestDto.getClubId())
             .orElseThrow(() -> new CommonException(ClubMemberErrorCode.CLUB_NOT_FOUND_ERROR));
 
-        checkPrivateCode(requestDto, club);
+//        checkPrivateCode(requestDto, club);
 
         User loginUser = userRepository.findById(userId).get();
         checkJoinDuplicate(loginUser, club);
@@ -35,20 +35,20 @@ public class ClubMemberService {
         clubJoinRequestRepository.save(clubJoinRequest);
     }
 
-    private static void checkPrivateCode(ClubJoinRequestDto requestDto, Club club) {
-        if (club.isPrivate()) {
-            String requestCode = requestDto.getPrivateCode();
-            String clubCode = club.getPrivateCode();
-
-            if (requestCode == null) {
-                throw new CommonException(ClubMemberErrorCode.PRIVATE_CLUB_ERROR);
-            }
-
-            if (!requestCode.equals(clubCode)) {
-                throw new CommonException(ClubMemberErrorCode.INVALID_PRIVATE_CODE_ERROR);
-            }
-        }
-    }
+//    private static void checkPrivateCode(ClubJoinRequestDto requestDto, Club club) {
+//        if (club.isPrivate()) {
+//            String requestCode = requestDto.getPrivateCode();
+//            String clubCode = club.getPrivateCode();
+//
+//            if (requestCode == null) {
+//                throw new CommonException(ClubMemberErrorCode.PRIVATE_CLUB_ERROR);
+//            }
+//
+//            if (!requestCode.equals(clubCode)) {
+//                throw new CommonException(ClubMemberErrorCode.INVALID_PRIVATE_CODE_ERROR);
+//            }
+//        }
+//    }
 
     private void checkJoinDuplicate(User loginUser, Club club) {
         boolean result = clubJoinRequestRepository.findAll()

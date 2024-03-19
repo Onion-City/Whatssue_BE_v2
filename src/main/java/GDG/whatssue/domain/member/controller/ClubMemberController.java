@@ -11,10 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 모임 가입 신청 : [POST] - /api/clubs/join
+ * 가입된 모임 조회 : [GET] - /api/clubs/join
+ * 신청 내역 조회 : [GET] - /api/clubs/join_request
+ * 신청 취소 : [DELETE] - /api/clubs/join_request
+ * 전체 일정 조회 :
+ * 일정 상세 조회
+ */
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/clubs")
 public class ClubMemberController {
 
     private final ClubMemberService clubMemberService;

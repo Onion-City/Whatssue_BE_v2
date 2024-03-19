@@ -1,6 +1,7 @@
 package GDG.whatssue.domain.club.entity;
 
 
+import GDG.whatssue.domain.file.entity.UploadFile;
 import GDG.whatssue.domain.member.entity.ClubJoinRequest;
 import GDG.whatssue.domain.member.entity.ClubMember;
 import GDG.whatssue.domain.schedule.entity.Schedule;
@@ -23,6 +24,7 @@ public class Club extends BaseEntity {
     @Column(name = "club_id")
     private Long id;
 
+
     @Column(nullable = false)
     private String clubName;
 
@@ -30,13 +32,16 @@ public class Club extends BaseEntity {
     private String clubInfo;
 
     @Column(nullable = false)
-    private String clubCategory;
-
-    @Column(nullable = false)
     private boolean isPrivate;
 
-    @Column(nullable = false)
-    private String privateCode;
+    @Column
+    private Integer memberMaxValue;
+
+    @Column
+    private String contactMeans;
+
+    @OneToOne(mappedBy = "club")
+    private UploadFile profileImage;
 
     @Column(nullable = false)
     private boolean isActivateCode;
