@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ClubRepository extends JpaRepository<Club, Long> {
 
-//    boolean existsByPrivateCode(String clubCode);
+    boolean existsByPrivateCode(String clubCode);
 }

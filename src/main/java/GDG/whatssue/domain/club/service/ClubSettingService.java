@@ -21,7 +21,6 @@ public class ClubSettingService {
     private static final Logger logger = LoggerFactory.getLogger(ClubSettingService.class);
 
 
-
     private String generateRandomClubCode() {
         Random random = new Random();
         // 랜덤한 알파벳 대문자와 0에서 9 사이의 랜덤한 정수를 섞어 클럽 코드로 사용
