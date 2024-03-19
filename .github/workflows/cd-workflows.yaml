@@ -47,7 +47,7 @@ jobs:
           username: pinetree2
           password: ${{ secrets.GHCR_TOKEN }}
 
-      # Docker 빌드 생성 및 푸시
+       # Docker 빌드 생성 및 푸시
       - name: dev Docker build & push
         if: contains(github.ref, 'main') || contains(github.ref, 'develop')
         run: |
