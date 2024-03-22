@@ -10,32 +10,38 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+/**
+ * 삭제할 컨트롤러.
+ * api 살릴 것이 있으면
+ * 해당하는 적절한 컨트롤러로 이동.
+ * 컨트롤러 뿐 아니라 다른 dto 등등도
+ */
+//@RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/{clubId}/member_join")
+//@RequestMapping("/api/{clubId}/member_join")
 public class MemberJoinController {
     private final MemberJoinService memberJoinService;
 
-    @PostMapping(value="accept/{clubJoinRequestId}")
+//    @PostMapping(value="accept/{clubJoinRequestId}")
     @Operation(summary="가입 신청 수락")
     public ResponseEntity acceptClubJoinRequest(@PathVariable Long clubJoinRequestId){
         memberJoinService.acceptResponse(clubJoinRequestId);
         return ResponseEntity.status(200).body("가입 신청 수락 완료");
     }
-    @PostMapping(value="deny/{clubJoinRequestId}")
+//    @PostMapping(value="deny/{clubJoinRequestId}")
     @Operation(summary="가입 신청 거절")
     public ResponseEntity denyClubJoinRequest(@PathVariable Long clubJoinRequestId){
         memberJoinService.denyResponse(clubJoinRequestId);
         return ResponseEntity.status(200).body("가입 신청 거절 완료");
     }
-    @GetMapping(value="list")
+//    @GetMapping(value="list")
     @Operation(summary="가입 신청 리스트 조회")
     public ResponseEntity<List<ClubJoinRequestGetDto>> getClubJoinRequest(@PathVariable Long clubId){
         List<ClubJoinRequestGetDto>ClubJoinRequests = memberJoinService.getClubJoinRequests(clubId);
         return ResponseEntity.ok(ClubJoinRequests);
 
     }
-    @DeleteMapping(value="delete")
+//    @DeleteMapping(value="delete")
     @Operation(summary="가입된 멤버 삭제")
     public ResponseEntity deleteClubMember(@RequestParam Long memberId,@PathVariable Long clubId){
         memberJoinService.deleteMember(clubId,memberId);

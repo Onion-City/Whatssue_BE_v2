@@ -3,6 +3,7 @@ package GDG.whatssue.domain.user.entity;
 import GDG.whatssue.global.common.BaseEntity;
 import GDG.whatssue.domain.member.entity.ClubJoinRequest;
 import GDG.whatssue.domain.member.entity.ClubMember;
+import GDG.whatssue.global.common.Role;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -27,8 +28,8 @@ public class User extends BaseEntity {
 //    @Column
 //    private String userPw;
 
-//    @Column
-//    private String userEmail;
+    @Column
+    private String userEmail;
 
     @Column
     private String userName;
@@ -36,12 +37,15 @@ public class User extends BaseEntity {
 //    @Column
 //    private String userPhone;
 
-    @Column
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @Column( nullable = false, unique = true)
     private String oauth2Id;
 
+    @Column
+    private String userPhone;
 
     @OneToMany(mappedBy = "user")
     private List<ClubJoinRequest> clubJoinRequestList = new ArrayList<>();

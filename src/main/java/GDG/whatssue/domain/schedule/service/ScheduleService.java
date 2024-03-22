@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * club에 유효한 schedule인지 체크. TODO
+ * schedule 생성 시 scheduleId 반환처리
  */
 
 @Service
@@ -62,14 +63,7 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId)
             .orElseThrow(()-> new CommonException(ScheduleErrorCode.SCHEDULE_NOT_FOUND_ERROR));
 
-
-        GetScheduleResponse scheduleDetailDto = GetScheduleResponse.builder()
-            .scheduleId(schedule.getId())
-            .scheduleName(schedule.getScheduleName())
-            .scheduleContent(schedule.getScheduleContent())
-            .scheduleDateTime(schedule.getScheduleDateTime().toString()).build();
-
-        return scheduleDetailDto;
+        return scheduleToGetScheduleResponse(schedule);
     }
 
     public List<GetScheduleResponse> findScheduleAll(Long clubId) {
@@ -115,7 +109,8 @@ public class ScheduleService {
             .scheduleId(schedule.getId())
             .scheduleName(schedule.getScheduleName())
             .scheduleContent(schedule.getScheduleContent())
-            .scheduleDateTime(schedule.getScheduleDateTime().toString()).build();
+            .scheduleDateTime(schedule.getScheduleDateTime())
+            .isChecked(schedule.isChecked()).build();
     }
 }
 

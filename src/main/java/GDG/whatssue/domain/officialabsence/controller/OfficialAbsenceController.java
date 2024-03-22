@@ -30,11 +30,32 @@ public class OfficialAbsenceController {
 
     }
     @GetMapping(value="/list")
-    @Operation(summary="공결 신청 전체 조회")
+    @Operation(summary="공결 신청, 내역 전체 조회")
     @PreAuthorize("hasRole('ROLE_'+#clubId+'MANAGER')")
-    public ResponseEntity<List<OfficialAbsenceGetRequestDto>> getOfficialAbsenceRequest(@PathVariable String clubId){
+    public ResponseEntity<List<OfficialAbsenceGetRequestDto>> getAllOfficialAbsenceRequestList(@PathVariable String clubId){
+        List<OfficialAbsenceGetRequestDto> officialAbsenceRequests = officialAbsenceService.getAllOfficialAbsenceRequests();
+        return ResponseEntity.ok(officialAbsenceRequests);
+    }
+    @GetMapping(value="/request_list")
+    @Operation(summary="공결 신청 현황 조회")
+    @PreAuthorize("hasRole('ROLE_'+#clubId+'MANAGER')")
+    public ResponseEntity<List<OfficialAbsenceGetRequestDto>> getOfficialAbsenceRequestList(@PathVariable String clubId){
         List<OfficialAbsenceGetRequestDto> officialAbsenceRequests = officialAbsenceService.getOfficialAbsenceRequests();
         return ResponseEntity.ok(officialAbsenceRequests);
+    }
+    @GetMapping(value="/done_list")
+    @Operation(summary="공결 신청 내역 조회")
+    @PreAuthorize("hasRole('ROLE_'+#clubId+'MANAGER')")
+    public ResponseEntity<List<OfficialAbsenceGetRequestDto>> getDoneOfficialAbsenceRequestList(@PathVariable String clubId){
+        List<OfficialAbsenceGetRequestDto> officialAbsenceRequests = officialAbsenceService.getDoneOfficialAbsenceRequests();
+        return ResponseEntity.ok(officialAbsenceRequests);
+    }
+    @GetMapping(value="/detail/{officialAbsenceId}")
+    @Operation(summary="공결 신청 상세 조회")
+    @PreAuthorize("hasRole('ROLE_'+#clubId+'MANAGER')")
+    public ResponseEntity<OfficialAbsenceGetRequestDto> getOfficialAbsenceRequestDetail(@PathVariable String clubId, @PathVariable Long officialAbsenceId){
+        OfficialAbsenceGetRequestDto officialAbsenceRequest = officialAbsenceService.getOfficialAbsenceRequestDetail(officialAbsenceId);
+        return ResponseEntity.ok(officialAbsenceRequest);
     }
     @PostMapping(value="/accept/{officialAbsenceId}")
     @Operation(summary="공결 신청 수락")

@@ -26,9 +26,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 public class ClubMember extends BaseEntity {
 
     @Id
@@ -54,4 +52,10 @@ public class ClubMember extends BaseEntity {
     @OneToMany(mappedBy = "clubMember")
     private List<OfficialAbsenceRequest> OfficialAbsenceRequestList;
 
+    @Builder
+    public ClubMember(Club club, User user, Role role) {
+        this.club = club;
+        this.user = user;
+        this.role = role;
+    }
 }
