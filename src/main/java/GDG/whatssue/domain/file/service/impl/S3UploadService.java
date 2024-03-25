@@ -11,10 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 @Service
 @RequiredArgsConstructor
 public class S3UploadService implements FileUploadService {
+
+    private static String PATH = "https://whatssue.s3.ap-northeast-2.amazonaws.com/";
 
     //S3Config에서 Bean으로 등록한 AmazonS3Client
     private final AmazonS3 amazonS3;
@@ -27,9 +28,7 @@ public class S3UploadService implements FileUploadService {
     public String saveFile(MultipartFile multipartFile, String dirName) throws IOException {
         String originalFileName = multipartFile.getOriginalFilename();
 
-        String ext = originalFileName.substring(originalFileName.lastIndexOf('.')+1);
-        UUID uuid = UUID.randomUUID();
-        String fileName = dirName + "/" + uuid + "." + ext;
+        String fileName = getFileName(dirName, originalFileName);
 
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(multipartFile.getSize());
@@ -38,7 +37,7 @@ public class S3UploadService implements FileUploadService {
         amazonS3.putObject(new PutObjectRequest(bucket, fileName, multipartFile.getInputStream(), metadata)
             .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        return amazonS3.getUrl(bucket, fileName).toString();
+        return fileName;
     }
 
     @Override
@@ -51,5 +50,16 @@ public class S3UploadService implements FileUploadService {
     public void deleteFile(String originalFileName) {
         //TODO
 
+    }
+
+    public String getFullPath(String fileName) {
+        return PATH + fileName;
+    }
+
+    private String getFileName(String dirName, String originalFileName) {
+        return dirName + "/" + UUID.randomUUID() + "." + extractExt(originalFileName);
+    }
+    private String extractExt(String originalFileName) {
+        return originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
     }
 }

@@ -16,23 +16,23 @@ public class ClubSettingController {
 
 
     // 모임 가입 신청 암호 코드 활성/비활성
-    @PostMapping(value = "/clubcode/{clubId}")
+/*    @PostMapping(value = "/clubcode/{clubId}")
     @Operation(summary = "모임 가입 코드 활성화/비활성화")
     @PreAuthorize("hasRole('ROLE_'+#clubId+'MANAGER')")
     public ResponseEntity clubCodeActivate( @PathVariable Long cludId){
 
         return clubSettingService.isActivateCode(cludId);
-    }
+    }*/
 
 
     // 모임 가입 암호 코드 갱신
-    @PatchMapping(value = "/clubcode/{clubId}")
+/*    @PatchMapping(value = "/clubcode/{clubId}")
     @Operation(summary = "모임 가입 코드 갱신")
     @PreAuthorize("hasRole('ROLE_'+#clubId+'MANAGER')")
     public ResponseEntity clubCodeRenewal( @PathVariable Long cludId ){
 
         return clubSettingService.renewalClubCode(cludId);
-    }
+    }*/
 
     // 모임 가입 신청 여닫기,가입 신청 조차를 안받는,status 변경
     @PatchMapping(value = "/clubstatus/{clubId}")
@@ -42,6 +42,4 @@ public class ClubSettingController {
 
         return clubSettingService.changeClubStatus(cludId);
     }
-
-
 }

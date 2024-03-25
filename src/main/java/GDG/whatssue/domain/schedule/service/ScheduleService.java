@@ -40,12 +40,9 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId)
             .orElseThrow(()-> new CommonException(ScheduleErrorCode.SCHEDULE_NOT_FOUND_ERROR));
 
-        schedule.update(
-            requestDto.getScheduleName(),
-            requestDto.getScheduleContent(),
-            requestDto.getScheduleDateTime());
+        schedule.update(requestDto);
 
-        Schedule updatedSchedule = scheduleRepository.save(schedule);
+        scheduleRepository.save(schedule);
     }
 
     /**

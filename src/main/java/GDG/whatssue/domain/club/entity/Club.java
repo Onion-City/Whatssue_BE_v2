@@ -1,14 +1,17 @@
 package GDG.whatssue.domain.club.entity;
 
 
+import GDG.whatssue.domain.club.dto.ClubUpdateRequest;
 import GDG.whatssue.domain.file.entity.UploadFile;
 import GDG.whatssue.domain.member.entity.ClubJoinRequest;
 import GDG.whatssue.domain.member.entity.ClubMember;
 import GDG.whatssue.domain.schedule.entity.Schedule;
 import GDG.whatssue.global.common.BaseEntity;
+import GDG.whatssue.global.common.NamePolicy;
 import jakarta.persistence.*;
 import java.util.List;
 
+import java.util.UUID;
 import lombok.*;
 
 @Entity
@@ -30,9 +33,6 @@ public class Club extends BaseEntity {
 
     @Column(nullable = false)
     private boolean isPrivate;
-
-    @Column
-    private Integer memberMaxValue;
 
     @Column
     private String contactMeans;
@@ -58,14 +58,13 @@ public class Club extends BaseEntity {
     @OneToMany(mappedBy = "club")
     private List<Schedule> scheduleList;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private NamePolicy namePolicy;
+
     // ActivateCode 값 update
     public void updateActivateCode(boolean isActivateCode) {
         this.isActivateCode = isActivateCode;
-    }
-
-    //PrivateCode 값 update
-    public void updatePrivateCode(String privateCode) {
-        this.privateCode = privateCode;
     }
 
     //isJoinStatus 값 update
@@ -73,14 +72,23 @@ public class Club extends BaseEntity {
         this.isJoinStatus = isJoinStatus;
     }
 
+    public void createNewPrivateCode() {
+        this.privateCode = UUID.randomUUID().toString().substring(0, 6);
+    }
+
+    public void updateClub(ClubUpdateRequest requestDto) {
+        this.clubName = requestDto.getClubName();
+        this.clubInfo = requestDto.getClubInfo();
+        this.isPrivate = requestDto.getIsPrivate();
+        this.contactMeans = requestDto.getContactMeans();
+    }
+
     @Builder
-    public Club(String clubName, String clubInfo, boolean isPrivate, Integer memberMaxValue,
-        String contactMeans, String privateCode) {
+    public Club(String clubName, String clubInfo, boolean isPrivate, String contactMeans, NamePolicy namePolicy) {
         this.clubName = clubName;
         this.clubInfo = clubInfo;
         this.isPrivate = isPrivate;
-        this.memberMaxValue = memberMaxValue;
         this.contactMeans = contactMeans;
-        this.privateCode = privateCode;
+        this.namePolicy = namePolicy;
     }
 }

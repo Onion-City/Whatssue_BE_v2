@@ -21,13 +21,13 @@ public class ClubSettingService {
     private static final Logger logger = LoggerFactory.getLogger(ClubSettingService.class);
 
 
-    private String generateRandomClubCode() {
+/*    private String generateRandomClubCode() {
         Random random = new Random();
         // 랜덤한 알파벳 대문자와 0에서 9 사이의 랜덤한 정수를 섞어 클럽 코드로 사용
         return "" + (char) ('A' + random.nextInt(26)) + random.nextInt(10)
                 + (char) ('A' + random.nextInt(26)) + random.nextInt(10)
                 + (char) ('A' + random.nextInt(26)) + random.nextInt(10);
-    }
+    }*/
 
 
     public ResponseEntity isActivateCode(Long clubId) {
@@ -58,7 +58,7 @@ public class ClubSettingService {
 
     }
 
-    public ResponseEntity renewalClubCode(Long cludId) {
+/*    public ResponseEntity renewalClubCode(Long cludId) {
         Club club = clubRepository.findById(cludId)
                 .orElseThrow(() -> new CommonException(ClubErrorCode.CLUB_NOT_FOUND_ERROR));
         String privateCode = club.getPrivateCode();
@@ -76,7 +76,7 @@ public class ClubSettingService {
             logger.warn("모임을 찾을 수 없습니다.");
             return ResponseEntity.status(404).body("모임을 찾을 수 없습니다.");
         }
-    }
+    }*/
 
     public ResponseEntity changeClubStatus(Long cludId) {
         Club club = clubRepository.findById(cludId)

@@ -24,8 +24,12 @@ public class UploadFile {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "club_id", nullable = false)
+    @JoinColumn(name = "club_id")
     private Club club;
+
+    @OneToOne
+    @JoinColumn(name = "club_member_id")
+    private Club clubMember;
 
     @Column(nullable = false)
     private String uploadFileName;

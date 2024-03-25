@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
 public class GetScheduleResponse {
 
     private Long scheduleId;
@@ -15,5 +14,16 @@ public class GetScheduleResponse {
 
     @JsonFormat(pattern = "yyyy년 MM월 dd일 HH시 mm분")
     private LocalDateTime scheduleDateTime;
+
     private boolean isChecked;
+
+    @Builder
+    public GetScheduleResponse(Long scheduleId, String scheduleName, String scheduleContent,
+        LocalDateTime scheduleDateTime, boolean isChecked) {
+        this.scheduleId = scheduleId;
+        this.scheduleName = scheduleName;
+        this.scheduleContent = scheduleContent;
+        this.scheduleDateTime = scheduleDateTime;
+        this.isChecked = isChecked;
+    }
 }
