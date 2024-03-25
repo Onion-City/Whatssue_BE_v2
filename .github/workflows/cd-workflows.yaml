@@ -38,7 +38,8 @@ jobs:
           cloud.aws.credentials.access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           cloud.aws.credentials.secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           cloud.aws.region.static: ap-northeast-2
-
+          spring.redis.data.host: ${{ secrets.REDIS_HOST }}
+          spring.redis.data.password: ${{ secrets.REDIS_PASSWORD }}
 
       - name: Grant execute permission for gradlew
 
