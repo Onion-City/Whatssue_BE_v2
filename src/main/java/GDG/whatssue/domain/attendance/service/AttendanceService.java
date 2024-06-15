@@ -56,7 +56,6 @@ public class AttendanceService {
         AttendanceNumResponseDto responseDto = AttendanceNumResponseDto.of(clubId, scheduleId, randomInt);
 
         return responseDto;
-
     }
 
     //현재 진행중인 일정 리스트
