@@ -3,7 +3,16 @@
 
 왓슈_버전업 및 MVP 코드 개선을 위한 레포지터리입니다.
 
-## 📌 주요 기능 
+
+### 프로젝트 소개 
+(아래 이미지를 클릭하면 상세 소개 링크로 이동합니다.) 
+<a href =https://notefolio.net/kms02336047/360251>
+<img width="919" alt="image" src="https://github.com/Onion-City/Whatssue_BE_v2/assets/79689822/78e8f5e3-f2cb-4e41-a775-e4469ae20209"> 
+</a>
+
+--- 
+
+### 📌 주요 기능 
 
 #### ✔️ 출석 관리 기능
 - 소모임별 멤버의 출석을 진행할 수 있습니다. 
@@ -25,14 +34,9 @@
 - 전화 번호 문자 인증을 통한 멤버 인증을 진행합니다. 
 - 관리자는 소모임에 적합한 형태로 멤버 프로필 설정 기능을 제한하여 소모임별 맞춤형 프로필을 제작할 수 있습니다. 
 - 멤버의 프로필 조회 권한도 설정을 할 수 있습니다. 
-- 멤버 추방 탈퇴가 가능합니다. 
+- 멤버 추방 탈퇴가 가능합니다.
 
-### 프로젝트 소개 
-아래 이미지를 클릭하면 상세 소개 링크로 이동합니다. 
 
-<a href =https://notefolio.net/kms02336047/360251>
-<img width="919" alt="image" src="https://github.com/Onion-City/Whatssue_BE_v2/assets/79689822/78e8f5e3-f2cb-4e41-a775-e4469ae20209"> 
-</a>
 
 
 ### 🔍배포 url (현재 해당 url은 내려간 상태입니다.)
@@ -53,12 +57,13 @@ https://whatssue.app
 - CSS
 - TypeScript
 - React
-- Kakao OAuth 
 #### 🖥️ Backend
 - Java
 - Spring Boot
 - JPA
 - MySql
+- Kakao OAuth
+- Spring Security
 
 ### Infra 
 - AWS (EC2, LB, AutoScailing)
